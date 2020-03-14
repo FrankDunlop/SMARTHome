@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title><%= title %></title>
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="./images/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="./images/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="./images/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="./images/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="./images/apple-touch-icon-60x60.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="./images/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="./images/apple-touch-icon-76x76.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="./images/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="./images/favicon-196x196.png" sizes="196x196" />
+		<link rel="icon" type="image/png" href="./images/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="./images/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="./images/favicon-16x16.png" sizes="16x16" />
+		<link rel="icon" type="image/png" href="./images/favicon-128.png" sizes="128x128" />
+		<meta name="application-name" content="&nbsp;"/>
+		<meta name="msapplication-TileColor" content="#FFFFFF" />
+		<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+		<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+		<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+		<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+		<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+		
+		<link rel="shortcut icon" href="./images/favicon.ico">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="./css//style.css">
+		<link rel="apple-touch-icon" href="./icons/touch.png">
+		<link rel="apple-touch-icon-precomposed" href="./icons/touch.png">
+		<meta name="description" content="Pi Smart Home Control">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> 
+		<link href="/css/style.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		<!--style="margin-left:70px;"-->
+		<header>
+			<img src="./images/logo.png">SMART<strong>Home</strong>
+			<img id="settings" style="margin-left:90px;" src="./images/settings.png">
+		</header>
+		<table style="width:100%">
+		  <tr>
+			<th>Room</th> 
+			<th></th> 
+			<th>Outside</th>
+			<th></th>
+		  </tr>
+		  <tr>
+			<td>Temp</td>
+			<td id="tempspan"></td>
+			<td>Temp</td>
+			<td id="reportTempspan"></td>
+		  </tr>
+		  <tr>
+			<td>Humidity</td>
+			<td id="humspan"></td>
+			<td>Humidity</td>
+			<td id="reportHumspan"></td>
+		  </tr>
+		</table>
+		<br/>
+		<div>
+			Weather Report:&nbsp;<span id="reportDescspan"></span>
+		</div>
+
+		<section class="container">
+			<section class="pref-container">
+				<section class="preference">
+					
+					<div id="auto">
+						<div class="caption" style="color:#6d8bba;">Auto</div>
+						<label for="autoSwitch">
+							<input id="autoSwitch" type="checkbox">
+							<div class="toggle-button">
+								<div class="switch"></div>
+							</div>
+						</label>
+					</div>
+
+					<div id="heat">
+						<div class="caption">Heating</div>
+						<label for="heatSwitch">
+							<input id="heatSwitch" type="checkbox">
+							<div class="toggle-button">
+								<div class="switch"></div>
+							</div>
+						</label>
+					</div>
+					<div id="autoHeatVal" class="caption1">
+						<div class="autoLabel">Auto Heat On Temp <input type="text" id="heatVal" class="textbox"></div>
+					</div>
+					
+					<div id="immersion">
+						<div class="caption">Immersion</div>
+						<label for="immersionSwitch">
+							<input id="immersionSwitch" type="checkbox">
+							<div class="toggle-button">
+								<div class="switch"></div>
+							</div>
+						</label>
+					</div>
+					<div id="autoImmersionVal" class="caption1">
+						<div class="autoLabel">Auto Water On Mins <input type="text" id="immersionVal" class="textbox"></div>
+					</div>
+					
+					<div id="light">
+						<div class="caption">Light</div>
+						<label for="lightSwitch">
+							<input id="lightSwitch" type="checkbox">
+							<div class="toggle-button">
+								<div class="switch"></div>
+							</div>
+						</label>
+					</div>
+					<div id="autoLightVal" class="caption1">
+						<div class="autoLabel">Auto Light On Hour <input type="text" id="lightVal" class="textbox"></div>
+					</div>
+				
+					<div id="cam">
+						<div class="caption">Camera</div>
+						<label for="camSwitch">
+							<input id="camSwitch" type="checkbox">
+							<div class="toggle-button">
+								<div class="switch"></div>
+							</div>
+						</label>
+					</div>
+					<div id="autoCamVal" class="caption1">
+						<div class="autoLabel">Auto Cam On Time <input type="text" id="camVal" class="textbox"></div>
+					</div>
+					
+				</section>
+			</section>
+			
+			<section>
+    			<img src="./images/cam.jpg" id="camview" width="320" height="240" align="center">
+			</section>
+
+		</section>
+		<script src="/js/main.js"></script>
+	</body>
+</html>
