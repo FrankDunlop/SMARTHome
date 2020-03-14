@@ -30,9 +30,11 @@ var path = require('path');
 	
 	console.log(__dirname);
 	
-	var indexRouter = require('./routes/index');
+	var authRouter = require('./routes/auth');
+	var homeRouter = require('./routes/home');
 	var settingsRouter = require('./routes/settings');
-	app.use('/', indexRouter);
+	app.use('/', authRouter);
+	app.use('/home', homeRouter);
 	app.use('/settings', settingsRouter);
 	app.use(function(err, req, res, next) {
 		console.log('Error: ' + err.message);

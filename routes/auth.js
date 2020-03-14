@@ -16,37 +16,6 @@ var authed = false;
   res.send('respond with a resource');
 });*/
 
-router.get('/Home', function(req, res, next) {
-  const code = req.query.code
-  if (code) {
-      oAuth2Client.getToken(code, function (err, tokens) {
-          if (err) {
-              console.log('Error authenticating' + err)
-          } else {
-            oAuth2Client.setCredentials(tokens);
-            var url = 'https://oauth2.googleapis.com/tokeninfo?id_token='+tokens.id_token;
-
-            //https://www.twilio.com/blog/2017/08/http-requests-in-node-js.html
-            axios.get(url)
-                .then(response => {
-                    console.log(response.data.email);
-                    if(response.data.email == process.env.email) {
-                        authed = true;
-                        res.render('index', { title: 'My SMARTHome' });
-                    } else {
-                        console.log(response.data.email + 'Not Authorised');
-                        res.render('error', { errormessage: 'Not Authorised' });
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                    res.render('error', { errormessage: error });
-                });
-          }
-      });
-    }
-});
-
 router.get('/', (req, res) => {
     if (!authed) {
         const url = oAuth2Client.generateAuthUrl({
@@ -72,11 +41,42 @@ router.get('/auth/google/callback', function (req, res) {
                 console.log('Successfully authenticated');
                 oAuth2Client.setCredentials(tokens);
                 authed = true;
-                res.redirect('/Home')
+                res.redirect('/home')
             }
         });
     }
 });
 
+router.get('/home', (req, res) => {
+    const code = req.query.code
+    if (code) {
+        oAuth2Client.getToken(code, function (err, tokens) {
+            if (err) {
+                console.log('Error authenticating' + err)
+            } else {
+              oAuth2Client.setCredentials(tokens);
+              var url = 'https://oauth2.googleapis.com/tokeninfo?id_token='+tokens.id_token;
+  
+              //https://www.twilio.com/blog/2017/08/http-requests-in-node-js.html
+              axios.get(url)
+                  .then(response => {
+                      console.log(response.data.email);
+                      if(response.data.email == process.env.email) {
+                          authed = true;
+                          //res.render('index', { title: 'My SMARTHome' });
+                          res.redirect('../home/dash')
+                      } else {
+                          console.log(response.data.email + 'Not Authorised');
+                          res.render('error', { errormessage: 'Not Authorised' });
+                      }
+                  })
+                  .catch(error => {
+                      console.log(error);
+                      res.render('error', { errormessage: error });
+                  });
+            }
+        });
+      }
+})
 
 module.exports = router;
