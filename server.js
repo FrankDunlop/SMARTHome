@@ -5,8 +5,8 @@ var path = require('path');
 	const auto = require('./src/autocontrol');
 	const config = require('./src/config');
 	var dotenv = require('dotenv').config();
-	//const DHTsensor = require('./src/DHTsensor');
-	//var Gpio = require('onoff').Gpio; 
+	const DHTsensor = require('./src/DHTsensor');
+	var Gpio = require('onoff').Gpio; 
 	var app = express();
 	
 	
@@ -41,12 +41,12 @@ var path = require('path');
 		res.render('error');
 	});
 									
-	//if (DHTsensor.initialize()) {
-	//	events.AsyncReadDHTSensor();
+	if (DHTsensor.initialize()) {
+		events.AsyncReadDHTSensor();
 		events.AsyncGetWeatherReport();
-	//} else {
-	//	process.exit(); 
-	//}
+	} else {
+		process.exit(); 
+	}
 	
 	var port = process.env.Port || 3000
 	var server = app.listen(port, () => console.log('Server Listening on port ' +port));
@@ -56,7 +56,7 @@ var path = require('path');
 	var UpdateWeatherDataInterval = setInterval(UpdateWeatherData, 60000);
 	function UpdateWeatherData(){ 
 		try {
-			//events.AsyncReadDHTSensor(); 							
+			events.AsyncReadDHTSensor(); 							
 			events.AsyncGetWeatherReport();
 		} catch(err) {
 			console.log('Sensor/Weather Reading Error: ' + err.message);
