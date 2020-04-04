@@ -55,7 +55,7 @@
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.5.1",
     "jstransformer": "^0.0.2",
-    "kind-of": "^3.2.2",
+    "kind-of": "^6.0.3",
     "lazy-cache": "^1.0.4",
     "longest": "^1.0.1",
     "media-typer": "^0.3.0",
