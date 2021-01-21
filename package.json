@@ -88,7 +88,7 @@
     "send": "^0.16.2",
     "serve-static": "^1.14.1",
     "setprototypeof": "^1.2.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "source-map": "^0.4.4",
     "statuses": "^1.5.0",
     "transformers": "^2.1.0",
