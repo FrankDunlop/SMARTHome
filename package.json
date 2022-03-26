@@ -64,7 +64,7 @@
     "mime": "^1.6.0",
     "mime-db": "^1.43.0",
     "mime-types": "^2.1.26",
-    "minimist": "^0.0.8",
+    "minimist": "^1.2.6",
     "mkdirp": "^0.5.1",
     "mongodb": "^3.5.3",
     "monk": "^7.1.2",
